@@ -24,7 +24,7 @@ compare(nc.out.current, nc.out.old=NULL, grp.csv = groups.csv,bgm.file=bgm.file,
 compare(nc.out.current, nc.out.old, grp.csv = groups.csv,bgm.file=bgm.file, cum.depths=cum.depths)
 
 ## ~~~~~~~~~~~~~~~~~ ##
-## ~  Food weeb    ~ ##
+## ~  Food web    ~ ##
 ## ~~~~~~~~~~~~~~~~~ ##
 diet.file <- paste0(output_directory, simulation01, '/outputSETASDietCheck.txt'
 food.web(diet.file, groups.csv)
