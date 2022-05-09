@@ -9,7 +9,7 @@ groups.csv       <- '/functionalGroups.csv'
 bgm.file         <- '/NorthSea.bgm'
 prm.file         <- '/01NorthSea_biol_fishing.prm'
 fsh.csv          <- 'your_fisheries_definition_file.csv'
-cum.depths       <- c(0, 10, 20, 50, 92, 192, 500)
+cum.depths       <- c(0, 20, 50, 100, 250, 700, 1200)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~          Compare previous run                ~ ##
