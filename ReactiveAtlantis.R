@@ -2,7 +2,9 @@ library(ReactiveAtlantis)
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~      Global vars   ~ ##
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
-main_directory   <- '~/trunk/example/'
+source('/home/por07g/Documents/Code_Tools/Package/ReactiveAtlantis/R/compare.R')
+#main_directory   <- '~/trunk/example/'
+main_directory <- '/home/por07g/Documents/Courses/Atlantis_Summit/trunk/example/'
 output_directory <- paste0(main_directory, 'outputFolder/output')
 initial_cond.nc  <-  paste0(main_directory, '/INIT_VMPA_Jan2015.nc')
 groups.csv       <- paste0(main_directory, '/SETasGroupsDem.csv')
@@ -19,6 +21,7 @@ simulation02   <- '00'
 nc.out.current <- paste0(output_directory, simulation01, '/outputSETAS.nc')
 nc.out.old     <- paste0(output_directory, simulation02, '/outputSETAS.nc')
 ## alone
+debug(compare)
 compare(nc.out.current, nc.out.old=NULL, grp.csv = groups.csv,bgm.file=bgm.file, cum.depths=cum.depths)
 ## compare with other output
 compare(nc.out.current, nc.out.old, grp.csv = groups.csv,bgm.file=bgm.file, cum.depths=cum.depths)
@@ -53,9 +56,11 @@ predation(biomass, groups.csv, diet.file, age.biomass=bio.age)
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~             Predator-prey Interaction          ~ ##
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
-
-feeding.mat(prm.file, groups.csv,  initial_cond.nc
-            , bgm.file, cum.depths)
+source('/home/por07g/Documents/Code_Tools/Package/ReactiveAtlantis/R/pprey.mat.R')
+library(ggplot2)
+library(dplyr)
+debug(feeding.mat)
+feeding.mat(prm.file, groups.csv,  initial_cond.nc, bgm.file, cum.depths)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~         Skill Assessment     ~ ##
@@ -69,3 +74,5 @@ cum.depths  <- c(0, 20, 50, 150, 250, 400, 650, 1000, 4300) ## This should be th
 bgm.file    <- 'your_spatial_configuration_file.bgm'
 grp.csv     <- 'your_groups_definition_file.csv'
 catch(grp.csv, fsh.csv, catch.nc, ext.catch.total, ext.catch.total)
+
+Crear archivo e las capturas
