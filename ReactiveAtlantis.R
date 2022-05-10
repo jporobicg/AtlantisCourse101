@@ -1,10 +1,14 @@
+install.packages('devtools')   ## you need to do this step just once
+# running
+library("devtools")
+install_github('Atlantis-Ecosystem-Model/ReactiveAtlantis', force=TRUE, dependencies=TRUE)
+
 library(ReactiveAtlantis)
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~      Global vars   ~ ##
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
-source('/home/por07g/Documents/Code_Tools/Package/ReactiveAtlantis/R/compare.R')
-#main_directory   <- '~/trunk/example/'
-main_directory <- '/home/por07g/Documents/Courses/Atlantis_Summit/trunk/example/'
+main_directory   <- '~/trunk/example/'
+#main_directory <- '/home/por07g/Documents/Courses/Atlantis_Summit/trunk/example/'
 output_directory <- paste0(main_directory, 'outputFolder/output')
 initial_cond.nc  <-  paste0(main_directory, '/INIT_VMPA_Jan2015.nc')
 groups.csv       <- paste0(main_directory, '/SETasGroupsDem.csv')
@@ -21,7 +25,6 @@ simulation02   <- '00'
 nc.out.current <- paste0(output_directory, simulation01, '/outputSETAS.nc')
 nc.out.old     <- paste0(output_directory, simulation02, '/outputSETAS.nc')
 ## alone
-debug(compare)
 compare(nc.out.current, nc.out.old=NULL, grp.csv = groups.csv,bgm.file=bgm.file, cum.depths=cum.depths)
 ## compare with other output
 compare(nc.out.current, nc.out.old, grp.csv = groups.csv,bgm.file=bgm.file, cum.depths=cum.depths)
@@ -31,18 +34,6 @@ compare(nc.out.current, nc.out.old, grp.csv = groups.csv,bgm.file=bgm.file, cum.
 ## ~~~~~~~~~~~~~~~~~ ##
 diet.file <- paste0(output_directory, simulation01, '/outputSETASDietCheck.txt')
 food.web(diet.file, groups.csv)
-
-## ~~~~~~~~~~~~~~~~~~~~~~ ##
-## ~      Recruitment   ~ ##
-## ~~~~~~~~~~~~~~~~~~~~~~ ##
-yoy.file       <- paste0(output_directory, simulation01, '/outputSETASYOY.txt')
-nc.out.current <- paste0(output_directory, simulation01, '/outputSETAS.nc')
-recruitment.cal(initial_cond.nc, nc.out.current, yoy.file, groups.csv, prm.file)
-
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
-## ~             Growth Primary producers         ~ ##
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
-growth.pp(initial_cond.nc, groups.csv, prm.file, nc.out.current)
 
 ## ~~~~~~~~~~~~~~~~~~ ##
 ## ~     Predation  ~ ##
@@ -56,11 +47,20 @@ predation(biomass, groups.csv, diet.file, age.biomass=bio.age)
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~             Predator-prey Interaction          ~ ##
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
-source('/home/por07g/Documents/Code_Tools/Package/ReactiveAtlantis/R/pprey.mat.R')
-library(ggplot2)
-library(dplyr)
-debug(feeding.mat)
 feeding.mat(prm.file, groups.csv,  initial_cond.nc, bgm.file, cum.depths)
+
+## Currently under mayor surgery!
+## ~~~~~~~~~~~~~~~~~~~~~~ ##
+## ~      Recruitment   ~ ##
+## ~~~~~~~~~~~~~~~~~~~~~~ ##
+yoy.file       <- paste0(output_directory, simulation01, '/outputSETASYOY.txt')
+nc.out.current <- paste0(output_directory, simulation01, '/outputSETAS.nc')
+recruitment.cal(initial_cond.nc, nc.out.current, yoy.file, groups.csv, prm.file)
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
+## ~             Growth Primary producers         ~ ##
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
+growth.pp(initial_cond.nc, groups.csv, prm.file, nc.out.current)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~         Skill Assessment     ~ ##
