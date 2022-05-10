@@ -7,7 +7,7 @@ library(ReactiveAtlantis)
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
 ## ~      Global vars   ~ ##
 ## ~~~~~~~~~~~~~~~~~~~~~~ ##
-main_directory   <- '~/trunk/example/'
+#main_directory   <- '~/trunk/example/'
 #main_directory <- '/home/por07g/Documents/Courses/Atlantis_Summit/trunk/example/'
 output_directory <- paste0(main_directory, 'outputFolder/output')
 initial_cond.nc  <-  paste0(main_directory, '/INIT_VMPA_Jan2015.nc')
